@@ -48,7 +48,7 @@ public class Server {
                     queryResult = connector.getResult(query.queryId);
                 }
 
-                dataOutputStream.writeUTF("Result:" + queryResult.result.toJSONString());
+                dataOutputStream.writeUTF("Result:" + queryResult.result.toString());
 
                 socket.close();
                 dataInputStream.close();

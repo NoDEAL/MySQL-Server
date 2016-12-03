@@ -2,7 +2,6 @@ package com.nodeal.database.mysql;
 
 import com.nodeal.database.mysql.structor.Query;
 import com.nodeal.database.mysql.structor.QueryResult;
-import org.json.simple.JSONArray;
 
 import java.sql.*;
 import java.util.ArrayList;
