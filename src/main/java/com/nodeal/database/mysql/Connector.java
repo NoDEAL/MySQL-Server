@@ -23,7 +23,7 @@ public class Connector {
 
     private Connection getConnection(String url, String id, String password) throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             return DriverManager.getConnection("jdbc:mysql://" + url + ":3306", id, password);
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
