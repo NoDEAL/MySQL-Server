@@ -24,10 +24,8 @@ public class Connector {
 
     private Connection getConnection(String url, String id, String password) throws SQLException {
         try {
-            TimeZone timeZone = TimeZone.getTimeZone("KST");
-            TimeZone.setDefault(timeZone);
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            return DriverManager.getConnection("jdbc:mysql://" + url + ":3306", id, password);
+            return DriverManager.getConnection("jdbc:mysql://" + url + ":3306?useLegacyDatetimeCode=false&serverTimezone=Asia/Seoul", id, password);
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
