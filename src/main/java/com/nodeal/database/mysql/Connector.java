@@ -6,6 +6,7 @@ import com.nodeal.database.mysql.structor.QueryResult;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TimeZone;
 
 /**
  * Created by 김지환 on 2016-12-03.
@@ -23,6 +24,8 @@ public class Connector {
 
     private Connection getConnection(String url, String id, String password) throws SQLException {
         try {
+            TimeZone timeZone = TimeZone.getTimeZone("KST");
+            TimeZone.setDefault(timeZone);
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             return DriverManager.getConnection("jdbc:mysql://" + url + ":3306", id, password);
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
