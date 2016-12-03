@@ -1,7 +1,7 @@
 package com.nodeal.database.mysql.structor;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,7 +31,7 @@ public class QueryResult {
                 jsonObject.put(column, resultSet.getObject(column));
             }
 
-            jsonArray.add(jsonObject);
+            jsonArray.put(jsonObject);
         }
 
         return jsonArray;
@@ -41,7 +41,7 @@ public class QueryResult {
         JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("result", result);
-        jsonArray.add(jsonObject);
+        jsonArray.put(jsonObject);
 
         return jsonArray;
     }
