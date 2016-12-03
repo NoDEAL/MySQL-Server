@@ -1,7 +1,11 @@
+apply plugin: 'java'
+
 group 'Database Util'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+
+buildDir = 'build'
 
 sourceCompatibility = 1.8
 
