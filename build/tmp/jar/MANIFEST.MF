@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Title: MySQL Server
-Version: 1.0-SNAPSHOT
-Main-Class: com.nodeal.database.mysql.Server
-
