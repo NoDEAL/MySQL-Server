@@ -6,7 +6,6 @@ import com.nodeal.database.mysql.structor.QueryResult;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.TimeZone;
 
 /**
  * Created by 김지환 on 2016-12-03.
@@ -16,16 +15,19 @@ public class Connector {
     private ArrayList<QueryResult> mResultList;
     private final Connection mConnection;
 
-    public Connector(String url, String id, String password) throws SQLException {
+    public Connector(String url, String database, String id, String password) throws SQLException {
         mQueryList = new ArrayList<>();
         mResultList = new ArrayList<>();
-        mConnection = getConnection(url, id, password);
+        mConnection = getConnection(url, database, id, password);
+
+        QueryThread queryThread = new QueryThread();
+        queryThread.start();
     }
 
-    private Connection getConnection(String url, String id, String password) throws SQLException {
+    private Connection getConnection(String url, String database, String id, String password) throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            return DriverManager.getConnection("jdbc:mysql://" + url + ":3306?useLegacyDatetimeCode=false&serverTimezone=Asia/Seoul&useSSL=false", id, password);
+            return DriverManager.getConnection("jdbc:mysql://" + url + ":3306/" + database + "?useLegacyDatetimeCode=false&serverTimezone=Asia/Seoul&useSSL=false", id, password);
         } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -36,6 +38,10 @@ public class Connector {
         mQueryList.add(query);
     }
 
+    public boolean getConnection() throws SQLException {
+        return mConnection.isValid(1);
+    }
+
     public int makeId() {
         boolean isUnique = false;
         Random random = new Random();
@@ -44,6 +50,11 @@ public class Connector {
         makeRandom:
         while (!isUnique) {
             id = random.nextInt();
+
+            if (mQueryList.size() == 0) {
+                break;
+            }
+
             for (Query query : mQueryList) {
                 if (id == query.queryId) {
                     isUnique = false;
@@ -57,6 +68,7 @@ public class Connector {
 
     public QueryResult getResult(int id) {
         for (int i = 0; i < mResultList.size(); i++) {
+            System.out.println(mResultList.get(i).result.toString());
             if (mResultList.get(i).queryId == id) {
                 QueryResult queryResult = mResultList.get(i);
                 mResultList.remove(i);
