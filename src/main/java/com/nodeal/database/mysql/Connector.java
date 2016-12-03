@@ -15,17 +15,17 @@ public class Connector {
     private ArrayList<QueryResult> mResultList;
     private final Connection mConnection;
 
-    public Connector(String url, String id, String password) {
+    public Connector(String url, String id, String password) throws SQLException {
         mQueryList = new ArrayList<>();
         mResultList = new ArrayList<>();
         mConnection = getConnection(url, id, password);
     }
 
-    private Connection getConnection(String url, String id, String password) {
+    private Connection getConnection(String url, String id, String password) throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             return DriverManager.getConnection("jdbc:mysql://" + url + ":3306", id, password);
-        } catch (SQLException | IllegalAccessException | InstantiationException | ClassNotFoundException e) {
+        } catch (IllegalAccessException | InstantiationException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }

@@ -8,6 +8,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 
 /**
  * Created by 김지환 on 2016-12-03.
@@ -17,7 +18,13 @@ public class Server {
 
     public static void main(String... args) {
         ServerSocket serverSocket = null;
-        Connector connector = new Connector("localhost", "root","kimju888");
+        Connector connector = null;
+        try {
+            connector = new Connector("localhost", "root","kimju888");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
 
         try {
             serverSocket = new ServerSocket(SERVER_PORT);
