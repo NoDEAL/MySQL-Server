@@ -44,6 +44,7 @@ public class Server {
 
                 DataInputStream dataInputStream = new DataInputStream(socket.getInputStream());
                 Query query = new Query(socket.getInetAddress().toString(), dataInputStream.readUTF(), connector.makeId());
+                System.out.println("Received Query: " + query.query);
                 connector.query(query);
 
                 DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
