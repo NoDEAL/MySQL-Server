@@ -3,6 +3,9 @@
 # IDEA Project
 .idea/
 
+# Gradle built
+build/
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
